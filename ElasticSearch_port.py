@@ -1,6 +1,6 @@
 #!/usr/bin/python2.6
 # By xielifeng On 2016-08-30
-# Jira: http://jira.transwiseway.com/browse/ZJYW-14657
+
 import os
 import json
 
