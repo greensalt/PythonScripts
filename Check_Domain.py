@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# By xielifeng On 2016-12-21
+# By Xie.L.F On 2016-12-21
 
 '''
-该脚本用于检测货运平台域名解析变更,如果有变更则发通知.
+该脚本用于检测平台域名解析变更,如果有变更则发通知.
 '''
 
 import os,time
@@ -13,18 +13,16 @@ import fcntl
 import struct
 
 # DomainName List:
-DomainNames = ['failoverv3.gghypt.net.cdngtm.com',
-               'mobilefailoverv3.gghypt.net.cdngtm.com',
-               'appinterfacefailoverv3.gghypt.net.cdngtm.com'
+DomainNames = ['test.test.com'
               ]
 
 # Alert Contacts:
-Mail_User = ['xielifeng@sinoiov.com',
+Mail_User = ['aaaa@163.com',
             ]
 # 去重:
 Receiver_User = list(set(Mail_User))
 
-Alert_Api = 'http://58.83.210.31:8866/mail_sms/sms.php'
+Alert_Api = 'http://a.t.com/api'
 
 Date = time.strftime("%Y-%m-%d",time.localtime())
 Log_File = '/tmp/Check_Domain'+Date+'.log'
@@ -44,9 +42,9 @@ def get_ip_address(ifname):
 
 def Alert(Body):
     IPADDR = get_ip_address('eth0')
-    Title = '<BJ:CUS>huoyun_03::'+IPADDR+'::Check_DomainName::WARNING::'+Body
+    Title = '<BJ:CUS>hy_03::'+IPADDR+'::Check_DomainName::WARNING::'+Body
     for User in Receiver_User:
-        Post_Arg = 'notify_receiver='+User+'&user_name=nagios&user_passwd=nagios&notify_title='+Title+'&notify_body='+Body
+        Post_Arg = 'notify_receiver='+User+'&user_name=nagios&user_passwd=123456&notify_title='+Title+'&notify_body='+Body
         Request = os.popen('curl -d "' + Post_Arg + '" ' + Alert_Api)
 
 def Write_Log(Body):
