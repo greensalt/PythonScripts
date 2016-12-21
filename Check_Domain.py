@@ -13,11 +13,13 @@ import fcntl
 import struct
 
 # DomainName List:
-DomainNames = ['test.test.com'
+DomainNames = ['test.test.com',
+               'test2.test.com'
               ]
 
 # Alert Contacts:
 Mail_User = ['aaaa@163.com',
+             'bbb@163.com'
             ]
 # 去重:
 Receiver_User = list(set(Mail_User))
