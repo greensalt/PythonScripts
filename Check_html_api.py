@@ -48,9 +48,9 @@ def Alert(Body):
         Alert_level = 'Ok'
     else:
         Alert_level = None
-    Title = '<BJ:XunJian>daka::'+IPADDR+'::Check_html_api::'+Alert_level+'::'+Body
+    Title = '<aa:dddd>ddd::'+IPADDR+'::Check_html_api::'+Alert_level+'::'+Body
     for User in Receiver_User:
-        Post_Arg = 'notify_receiver='+User+'&user_name=nagios&user_passwd=nagios&notify_title='+Title+'&notify_body='+Body
+        Post_Arg = 'notify_receiver='+User+'&user_name=admin&user_passwd=123456&notify_title='+Title+'&notify_body='+Body
         Request = os.popen('curl -d "' + Post_Arg + '" ' + Alert_Api)
 
 def Write_Log(Body):
