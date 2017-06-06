@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# By Xie.L.F On 2016-12-21
+# By L.F.Xie On 2016-12-21
 
 '''
 该脚本用于检测平台域名解析变更,如果有变更则发通知.
