@@ -11,7 +11,7 @@ from urllib2 import URLError
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
-zabbix_url = "http://172.90.4.63/api_jsonrpc.php"
+zabbix_url = "http://17.0.4.63/api_jsonrpc.php"
 zabbix_header = {"Content-Type":"application/json"}
 zabbix_user = "admin"
 zabbix_pass = "zabbix"
@@ -148,7 +148,7 @@ def host_itemtriggercreate(hostIP,applicationtype,itempp):
 #host_itemtriggercreate(sys.argv[1], sys.argv[2], sys.argv[3])
 #host_itemtriggercreate('10.32.40.60','monitor_port','8888')
 
-## Add L.F.Xie On 2017-12-22
+## Add L.F.Xie On 2017-12-22，支持批量添加：
 for PORT in sys.argv[3].split(','):
     host_itemtriggercreate(sys.argv[1], sys.argv[2], PORT)
 
