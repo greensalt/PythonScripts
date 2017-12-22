@@ -20,7 +20,7 @@ from urllib2 import URLError
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
-zabbix_url = "http://17.0.4.63/api_jsonrpc.php"
+zabbix_url = "http://172.90.4.63/api_jsonrpc.php"
 zabbix_header = {"Content-Type":"application/json"}
 zabbix_user = "admin"
 zabbix_pass = "zabbix"
@@ -108,7 +108,7 @@ def host_applicationid(hostIP,applicationtype):
         return applicationID
 
 # def host_itemtriggercreate(hostIP,applicationtype,itempp):
-def add_port(hostIP,applicationtype,itempp):
+def monitor_port(hostIP,applicationtype,itempp):
     data = json.dumps({
         "jsonrpc": "2.0",
         "method": "item.create",
@@ -158,7 +158,7 @@ def add_port(hostIP,applicationtype,itempp):
         print response
 
 # def host_itemtriggercreate(hostIP,applicationtype,itempp):
-def add_process(hostIP,applicationtype,itempp):
+def monitor_process(hostIP,applicationtype,itempp):
     data = json.dumps({
         "jsonrpc": "2.0",
         "method": "item.create",
@@ -210,12 +210,17 @@ def add_process(hostIP,applicationtype,itempp):
 #host_itemtriggercreate('10.32.40.60','monitor_port','8888')
 
 ## 支持批量添加：
-if sys.argv[2] == 'monitor_port':
-    for PORT in sys.argv[3].split(','):
-        add_port(sys.argv[1], 'monitor_port', PORT)
+monitor_list = ['monitor_port', 'monitor_process']
+if sys.argv[2] in monitor_list:
+    for ARG in sys.argv[3].split(','):
+        sys.argv[2](sys.argv[1], sys.argv[2], ARG)
+else:
+    print 'Error, not support.'
+    print '''
+    ## 端口监控添加
+    python add_ports_AND_processes.py 10.10.32.52 monitor_port 7008,7005,7028,7027,7201,7009
 
-if sys.argv[2] == 'monitor_process':
-    for PORT in sys.argv[3].split(','):
-        add_process(sys.argv[1], 'monitor_process', PORT)
-
-
+    ## 进程监控添加
+    python add_ports_AND_processes.py 10.10.32.52 monitor_process redis_2.8,redis_3.0
+    '''
+    sys.exit(1)
