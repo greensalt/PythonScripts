@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 #-*- coding: utf-8 -*-
 
+## python zabbix_api_add_ports.py 10.10.32.52 monitor_port 7008,7005,7028,7027,7201,7009
+
 import json
 import sys
 import urllib2
