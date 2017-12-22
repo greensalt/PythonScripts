@@ -35,6 +35,8 @@ def user_login():
         authID = response['result']
         return authID
 
+auth_id = user_login()
+
 def host_getid(hostIP):
     data = json.dumps({
         "jsonrpc": "2.0",
@@ -43,7 +45,7 @@ def host_getid(hostIP):
             "output": "extend",
             "filter": {"ip": hostIP}
         },
-        "auth": user_login(),
+        "auth": auth_id,
         "id": 1
     })
     request = urllib2.Request(zabbix_url, data)
@@ -63,7 +65,7 @@ def host_interfaceid(hostIP):
             "output": "extend",
             "hostids": host_getid(hostIP)[0]
         },
-        "auth": user_login(),
+        "auth": auth_id,
         "id": 1
     })
     request = urllib2.Request(zabbix_url, data)
@@ -84,7 +86,7 @@ def host_applicationid(hostIP,applicationtype):
             "sortfield": "name",
             "filter": {"name": applicationtype}
         },
-        "auth": user_login(),
+        "auth": auth_id,
         "id": 1
     })
     request = urllib2.Request(zabbix_url, data)
@@ -116,7 +118,7 @@ def host_itemtriggercreate(hostIP,applicationtype,itempp):
                 host_applicationid(hostIP, applicationtype)
             ]
         },
-        "auth": user_login(),
+        "auth": auth_id,
         "id": 1
     })
     request = urllib2.Request(zabbix_url, data)
@@ -135,7 +137,7 @@ def host_itemtriggercreate(hostIP,applicationtype,itempp):
             "priority": 4,
             "status": 0
         },
-        "auth": user_login(),
+        "auth": auth_id,
         "id": 1
     })
     request = urllib2.Request(zabbix_url, data)
