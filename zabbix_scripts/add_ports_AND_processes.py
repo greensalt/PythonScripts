@@ -211,16 +211,17 @@ def monitor_process(hostIP,applicationtype,itempp):
 
 ## 支持批量添加：
 monitor_list = ['monitor_port', 'monitor_process']
-if sys.argv[2] in monitor_list:
-    for ARG in sys.argv[3].split(','):
-        sys.argv[2](sys.argv[1], sys.argv[2], ARG)
-else:
-    print 'Error, not support.'
-    print '''
+help_doc = '''
     ## 端口监控添加
     python add_ports_AND_processes.py 10.10.32.52 monitor_port 7008,7005,7028,7027,7201,7009
 
     ## 进程监控添加
     python add_ports_AND_processes.py 10.10.32.52 monitor_process redis_2.8,redis_3.0
-    '''
+'''
+if len(sys.argv) != 4 or sys.argv[2] not in monitor_list:
+    print 'Error, not support.'
+    print help_doc
     sys.exit(1)
+else:
+    for ARG in sys.argv[3].split(','):
+        sys.argv[2](sys.argv[1], sys.argv[2], ARG)
