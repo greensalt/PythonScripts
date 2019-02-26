@@ -30,7 +30,7 @@ def writeLog(log_content):
     with open(log_file, 'a+', encoding='utf-8') as f:
         f.write('%s\n' % log_content)
 
-def downRepo(url):
+def downRepo(url, path):
     headers = {
         "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.12; rv:64.0) Gecko/20100101 Firefox/64.0",
         "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
@@ -44,7 +44,7 @@ def downRepo(url):
 
     if links:
         for link in links:
-            sh_cmd = 'wget %s/%s -t 2 -N -r -c -np -nH -R index* --cut-dirs 3 --restrict-file-names=nocontrol -e robots=off -P /data/didiyum/mirrors/public/cuda/ubuntu/' % (url, link)
+            sh_cmd = 'wget %s/%s -t 2 -N -r -c -np -nH -R index* --cut-dirs 3 --restrict-file-names=nocontrol -e robots=off -P %s' % (url, link, path)
             if bash(sh_cmd) == 0:
                 log = "%s [ OK ] <%s>" % (getNowTime(), sh_cmd)
                 writeLog(log)
@@ -76,7 +76,7 @@ def checkMd5(url, path):
         else:
             log = "%s [ Warning ] local(%s) != remote(%s), <%s> need update." % (getNowTime(),local_md5_value,r_md5_value, remote_md5_file)
             writeLog(log)
-            downRepo(url)
+            downRepo(url, path)
     except:
         err_log = "%s [ ERROR ] requests.get[%s] failed." % (getNowTime(), remote_md5_file)
         writeLog(err_log)
